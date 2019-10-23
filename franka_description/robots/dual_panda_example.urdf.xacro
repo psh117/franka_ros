@@ -23,11 +23,11 @@
   </link>
   
   <!-- left arm with gripper -->
-  <xacro:panda_arm arm_id="panda_left" connected_to="base"  xyz="0 0.5 1" safety_distance="0.03"/>
-  <xacro:hand ns="panda_left" rpy="0 0 ${-pi/4}" connected_to="panda_left_link8" safety_distance="0.03"/>
+  <xacro:panda_arm arm_id="panda_left" connected_to="base"  xyz="0 0.5 1" />
+  <xacro:hand ns="panda_left" rpy="0 0 ${-pi/4}" connected_to="panda_left_link8" />
   
   <!-- right arm with gripper -->
-  <xacro:panda_arm arm_id="panda_right" connected_to="base"  xyz="0 -0.5 1" safety_distance="0.03"/>
-  <xacro:hand ns="panda_right" rpy="0 0 ${-pi/4}" connected_to="panda_right_link8" safety_distance="0.03"/>
+  <xacro:panda_arm arm_id="panda_right" connected_to="base"  xyz="0 -0.5 1" />
+  <xacro:hand ns="panda_right" rpy="0 0 ${-pi/4}" connected_to="panda_right_link8" />
   
 </robot>
