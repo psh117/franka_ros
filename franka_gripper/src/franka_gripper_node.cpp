@@ -58,7 +58,7 @@ using franka_gripper::StopResult;
 using franka_gripper::updateGripperState;
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "franka_gripper_node");
+  ros::init(argc, argv, "franka_gripper_node", ros::init_options::AnonymousName);
   ros::NodeHandle node_handle("~");
   std::string robot_ip;
   if (!node_handle.getParam("robot_ip", robot_ip)) {
