@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
-  <!-- safety_distance: Minimum safety distance in [m] by which the collision volumes are expanded and which is enforced during robot motions -->
+  <!-- sd: Minimum safety distance in [m] by which the collision volumes are expanded and which is enforced during robot motions -->
   <!-- arm_id: Namespace of the panda arm. Serves to differentiate between arms in case of multiple instances. -->
-  <xacro:macro name="panda_arm" params="arm_id:='panda' description_pkg:='franka_description' connected_to:='' xyz:='0 0 0' rpy:='0 0 0' safety_distance:=0">
+  <xacro:macro name="panda_arm" params="arm_id:='panda' description_pkg:='franka_description' connected_to:='' xyz:='0 0 0' rpy:='0 0 0' sd0:=0 sd1:=0 sd2:=0 sd3:=0 sd4:=0 sd5:=0 sd6:=0 sd7:=0 sd8:=0 cable:=0">
     <xacro:unless value="${not connected_to}">
       <joint name="${arm_id}_joint_${connected_to}" type="fixed">
         <parent link="${connected_to}"/>
@@ -17,21 +17,48 @@
         </geometry>
       </visual>
       <collision>
+	<!---->
         <origin xyz="-0.075 0 0.06" rpy="0 ${pi/2} 0"/>
         <geometry>
-          <cylinder radius="${0.06+safety_distance}" length="0.03" />
+          <cylinder radius="${0.06+sd0}" length="0.03" />
+        </geometry>
+      </collision>
+
+      <collision>
+	<!--base-->
+        <origin xyz="-0.06 0 0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.24+sd0} ${0.18+sd0} ${0.1+sd0}" />
+        </geometry>
+      </collision>
+
+      <collision>
+	<!--base+front-->
+        <origin xyz="0.02 0 0.03" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${0.06+sd0}" length="0.06" />
         </geometry>
       </collision>
       <collision>
+	<!--base+cable-->
+        <origin xyz="-0.09 ${-0.075-cable} 0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.18+sd0} ${0.15+cable+sd0} ${0.1+sd0}" />
+        </geometry>
+      </collision>
+
+      <collision>
+	<!---->
         <origin xyz="-0.06 0 0.06" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd0}" />
         </geometry>
       </collision>
       <collision>
+	<!---->
         <origin xyz="-0.09 0 0.06" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd0}" />
         </geometry>
       </collision>
     </link>
@@ -42,21 +69,31 @@
         </geometry>
       </visual>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.1915" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.06+safety_distance}" length="0.2830" />
+          <cylinder radius="${0.06+sd1}" length="0.2830" />
         </geometry>
       </collision>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.333" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd1}" />
         </geometry>
       </collision>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.05" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd1}" />
+        </geometry>
+      </collision>
+      <collision>
+	<!---->
+        <origin xyz="0 -0.05 -0.05" rpy="${pi*30/180} 0 0"/>
+        <geometry>
+          <cylinder radius="${0.055+sd1}" length="0.12" />
         </geometry>
       </collision>
     </link>
@@ -75,21 +112,31 @@
         </geometry>
       </visual>
       <collision>
+	<!---->
+        <origin xyz="0 -0.05 0.05" rpy="${pi*125/180} 0 0"/>
+        <geometry>
+          <cylinder radius="${0.055+sd2}" length="0.12" />
+        </geometry>
+      </collision>
+      <collision>
+	<!---->
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.06+safety_distance}" length="0.12" />
+          <cylinder radius="${0.06+sd2}" length="0.12" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0 -0.06" rpy="0 0 0"/>
+	<!---->
+        <origin xyz="0 0 -0.08" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd2}" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0 0.06" rpy="0 0 0"/>
+	<!---->
+        <origin xyz="0 0 0.08" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd2}" />
         </geometry>
       </collision>
     </link>
@@ -108,21 +155,24 @@
         </geometry>
       </visual>
       <collision>
+	<!--link3 body-->
         <origin xyz="0 0 -0.145" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.06+safety_distance}" length="0.15" />
+          <cylinder radius="${0.06+sd3}" length="0.15" />
         </geometry>
       </collision>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.22" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd3}" />
         </geometry>
       </collision>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.07" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd3}" />
         </geometry>
       </collision>
     </link>
@@ -141,21 +191,38 @@
         </geometry>
       </visual>
       <collision>
+	<!--link4 body-->
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.06+safety_distance}" length="0.12" />
+          <cylinder radius="${0.06+sd4}" length="0.12" />
         </geometry>
       </collision>
       <collision>
+	<!---->
         <origin xyz="0 0 0.06" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd4}" />
         </geometry>
       </collision>
       <collision>
+	<!---->
+        <origin xyz="-0.01 0.01 0.07" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${0.06+sd4}" length="0.02" />
+        </geometry>
+      </collision>
+      <collision>
+	<!---->
+        <origin xyz="0.01 -0.01 -0.07" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${0.06+sd4}" length="0.02" />
+        </geometry>
+      </collision>
+      <collision>
+	<!---->
         <origin xyz="0 0 -0.06" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd4}" />
         </geometry>
       </collision>
     </link>
@@ -174,39 +241,45 @@
         </geometry>
       </visual>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.26" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.06+safety_distance}" length="0.1" />
+          <cylinder radius="${0.06+sd5}" length="0.1" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0 -0.31" rpy="0 0 0"/>
+	<!--almost link 4-->
+        <origin xyz="0 0 -0.32" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd5}" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0 -0.21" rpy="0 0 0"/>
+	<!---->
+        <origin xyz="0 0 -0.22" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.06+safety_distance}" />
+          <sphere radius="${0.06+sd5}" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0.08 -0.13" rpy="0 0 0"/>
+	<!--link5 long body part-->
+        <origin xyz="0 0.08 -0.12" rpy="${-pi*8/180} 0 0"/>
         <geometry>
-          <cylinder radius="${0.025+safety_distance}" length="0.14" />
+          <cylinder radius="${0.035+sd5}" length="0.17" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0.08 -0.06" rpy="0 0 0"/>
+	<!--curve part-->
+        <origin xyz="0 0.085 0" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.025+safety_distance}" />
+          <sphere radius="${0.06+sd5}" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0.08 -0.20" rpy="0 0 0"/>
+	<!---->
+        <origin xyz="0 0.05 -0.19" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.025+safety_distance}" />
+          <sphere radius="${0.05+sd5}" />
         </geometry>
       </collision>
 
@@ -226,21 +299,31 @@
         </geometry>
       </visual>
       <collision>
+	<!---->
         <origin xyz="0 0 -0.03" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.05+safety_distance}" length="0.08" />
+          <cylinder radius="${0.06+sd6}" length="0.08" />
         </geometry>
       </collision>
       <collision>
+	<!---->
+        <origin xyz="0.02 0 0.01" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${0.06+sd6}" length="0.07" />
+        </geometry>
+      </collision>
+      <collision>
+	<!--curve part-->
         <origin xyz="0 0 0.01" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.05+safety_distance}" />
+          <sphere radius="${0.06+sd6}" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0 0 -0.07" rpy="0 0 0"/>
+	<!--link6and5 connection part-->
+        <origin xyz="0 0 -0.08" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.05+safety_distance}" />
+          <sphere radius="${0.051+sd6}" />
         </geometry>
       </collision>
     </link>
@@ -259,21 +342,24 @@
         </geometry>
       </visual>
       <collision>
+	<!--link7's body-->
         <origin xyz="0 0 0.01" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${0.04+safety_distance}" length="0.14" />
+          <cylinder radius="${0.045+sd7}" length="0.14" />
         </geometry>
       </collision>
       <collision>
+	<!--link7and8 connection part-->
         <origin xyz="0 0 0.08" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.04+safety_distance}"  />
+          <sphere radius="${0.04+sd7}"  />
         </geometry>
       </collision>
       <collision>
+	<!--button part-->
         <origin xyz="0 0 -0.06" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.04+safety_distance}"  />
+          <sphere radius="${0.045+sd7}"  />
         </geometry>
       </collision>
     </link>
@@ -287,21 +373,18 @@
     </joint>
     <link name="${arm_id}_link8">
       <collision>
-        <origin xyz="0.0424 0.0424 -0.0250" rpy="${pi} ${pi/2} ${pi/2}"/>
+	<!--button part-->
+        <origin xyz="0.04 0.04 -0.03" rpy="0 0 ${pi/4}"/>
         <geometry>
-          <cylinder radius="${0.03+safety_distance}"  length="0.01" />
+          <box size="${0.07+sd8} ${0.07+sd8} ${0.02+sd8}" />
         </geometry>
       </collision>
       <collision>
-        <origin xyz="0.0424 0.0424 -0.02" rpy="0 0 0"/>
+
+	<!--rotate part-->
+        <origin xyz="0 0 -0.028" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${0.03+safety_distance}"  />
-        </geometry>
-      </collision>
-      <collision>
-        <origin xyz="0.0424 0.0424 -0.03" rpy="0 0 0"/>
-        <geometry>
-          <sphere radius="${0.03+safety_distance}"  />
+          <cylinder radius="${0.05+sd8}"  length="0.05"  />
         </geometry>
       </collision>
     </link>
