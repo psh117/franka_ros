@@ -383,8 +383,8 @@
       <parent link="${arm_id}_link6_augmented"/>
       <child link="${arm_id}_link6"/>
       <axis xyz="0 0 1"/>
-      <!-- <limit effort="12" lower="-0.0175" upper="3.7525" velocity="2.6100"/> -->
-      <limit effort="12" lower="0.75" upper="3.7525" velocity="2.6100"/>
+      <limit effort="12" lower="-0.0175" upper="3.7525" velocity="2.6100"/>
+      <!-- <limit effort="12" lower="0.75" upper="3.7525" velocity="2.6100"/> -->
     </joint>
     <link name="${arm_id}_link7">
       <visual>
